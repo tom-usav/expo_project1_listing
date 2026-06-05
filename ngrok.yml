@@ -1,0 +1,18 @@
+version: "2"
+authtoken: 3BlF4R2CMpmL2cYSIMfPhf8PIqi_42AErMicj28bR84uYMtvs
+
+tunnels:
+  expo:
+    proto: http
+    addr: 8081
+    inspect: true
+
+  firebase-auth:
+    proto: http
+    addr: 9099
+    inspect: false
+
+  firebase-functions:
+    proto: http
+    addr: 5001
+    inspect: false

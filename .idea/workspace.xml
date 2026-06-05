@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="ce0ee7a7-477a-4d78-b65c-5a0faf5fe0d0" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="EmbeddingIndexingInfo">
+    <option name="cachedIndexableFilesCount" value="185" />
+    <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
+  </component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="NextEditCompletionFeaturesState">
+    <decayedCancelled>
+      <entry key="MS100" value="1.2600562080975204" />
+      <entry key="MS500" value="2.758945167729549" />
+      <entry key="S2" value="3.8395491663315444" />
+      <entry key="S5" value="5.093824156702936" />
+      <entry key="S10" value="6.1572920651574785" />
+      <entry key="S30" value="7.2686548064925915" />
+      <entry key="S60" value="7.617231465697643" />
+      <entry key="M2" value="7.804131959677952" />
+      <entry key="M5" value="7.920550391386908" />
+      <entry key="M10" value="7.968696324221578" />
+      <entry key="M15" value="8.133745647975562" />
+      <entry key="M30" value="12.246755912232553" />
+      <entry key="H1" value="41.48248941776747" />
+      <entry key="H2" value="143.3201748077364" />
+      <entry key="H4" value="366.409839697097" />
+      <entry key="D1" value="1081.2045402878998" />
+      <entry key="W1" value="1348.0260344402172" />
+    </decayedCancelled>
+    <decayedSelected>
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="0.0" />
+      <entry key="S2" value="0.0" />
+      <entry key="S5" value="0.0" />
+      <entry key="S10" value="0.0" />
+      <entry key="S30" value="0.0" />
+      <entry key="S60" value="8.399863783629758E-290" />
+      <entry key="M2" value="4.6654312127771085E-145" />
+      <entry key="M5" value="4.231560270385453E-58" />
+      <entry key="M10" value="4.7157461942719086E-29" />
+      <entry key="M15" value="2.3325644688159695E-19" />
+      <entry key="M30" value="1.1727076801141344E-9" />
+      <entry key="H1" value="8.36936118994843E-5" />
+      <entry key="H2" value="0.022396202655573117" />
+      <entry key="H4" value="0.36652251442590494" />
+      <entry key="D1" value="3.765310770069046" />
+      <entry key="W1" value="5.613630648501399" />
+    </decayedSelected>
+    <decayedShown>
+      <entry key="MS100" value="1.2255999048236177" />
+      <entry key="MS500" value="2.7436877541862676" />
+      <entry key="S2" value="3.8332890712367864" />
+      <entry key="S5" value="5.088976121971833" />
+      <entry key="S10" value="6.15380911753104" />
+      <entry key="S30" value="7.267121392407667" />
+      <entry key="S60" value="7.616406227290091" />
+      <entry key="M2" value="7.803703643279627" />
+      <entry key="M5" value="7.920375153287062" />
+      <entry key="M10" value="7.96860799358201" />
+      <entry key="M15" value="8.133686030452456" />
+      <entry key="M30" value="12.246716675467722" />
+      <entry key="H1" value="41.482514163601344" />
+      <entry key="H2" value="143.34246198522916" />
+      <entry key="H4" value="366.7761570381743" />
+      <entry key="D1" value="1084.9696487472895" />
+      <entry key="W1" value="1353.6396239907017" />
+    </decayedShown>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0,
+  &quot;fromUser&quot;: false
+}</component>
+  <component name="ProjectId" id="3CuPhEUcU3P78P8vnmXu0RiUPLY" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Attach to Node.js/Chrome.testdebug.executor&quot;: &quot;Debug&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;javascript.preferred.runtime.type.id&quot;: &quot;node&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/thomasvo/ProAiApp3&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;ml.llm.LLMConfigurable&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/thomasvo/ProAiApp3/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RunManager" selected="Attach to Node.js/Chrome.testdebug">
+    <configuration name="Unnamed" type="ChromiumRemoteDebugType" factoryName="Chromium Remote" nameIsGenerated="true" port="9229">
+      <method v="2" />
+    </configuration>
+    <configuration name="Unnamed" type="ChromiumRemoteDebugType" factoryName="Chromium Remote" nameIsGenerated="true" port="9229">
+      <method v="2" />
+    </configuration>
+    <configuration name="testdebug" type="ChromiumRemoteDebugType" factoryName="Chromium Remote" port="8081">
+      <mapping url="http://localhost:8081" local-file="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="testdebug" type="ChromiumRemoteDebugType" factoryName="Chromium Remote" port="8081">
+      <mapping url="http://localhost:8081" local-file="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Attach to Node.js/Chrome.Unnamed" />
+      <item itemvalue="Attach to Node.js/Chrome.testdebug" />
+    </list>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-31caf2ab9e3c-JavaScript-WS-261.24374.125" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ce0ee7a7-477a-4d78-b65c-5a0faf5fe0d0" name="Changes" comment="" />
+      <created>1777232599738</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1777232599738</updated>
+      <workItem from="1777232601225" duration="7752000" />
+      <workItem from="1777295069550" duration="973000" />
+      <workItem from="1777296055304" duration="384000" />
+      <workItem from="1777299724173" duration="6629000" />
+      <workItem from="1777411777118" duration="3341000" />
+      <workItem from="1779556829354" duration="292000" />
+      <workItem from="1779557139778" duration="152000" />
+      <workItem from="1779634135028" duration="2706000" />
+      <workItem from="1779637162949" duration="5518000" />
+      <workItem from="1779644853583" duration="121000" />
+      <workItem from="1779644979175" duration="1531000" />
+      <workItem from="1779730962152" duration="7937000" />
+      <workItem from="1779755370567" duration="154000" />
+      <workItem from="1779801703260" duration="9178000" />
+      <workItem from="1779827298314" duration="2463000" />
+      <workItem from="1779829912416" duration="57000" />
+      <workItem from="1779830041453" duration="32000" />
+      <workItem from="1779830663605" duration="139000" />
+      <workItem from="1779830823791" duration="189000" />
+      <workItem from="1779831445014" duration="1784000" />
+      <workItem from="1779894022743" duration="4166000" />
+      <workItem from="1779901164600" duration="7393000" />
+      <workItem from="1779975301500" duration="9435000" />
+      <workItem from="1780059954864" duration="11335000" />
+      <workItem from="1780339244527" duration="200000" />
+      <workItem from="1780339472754" duration="22000" />
+      <workItem from="1780339514577" duration="625000" />
+      <workItem from="1780340673884" duration="499000" />
+      <workItem from="1780350148898" duration="18000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/app/dynamic-inputs.tsx</url>
+          <line>39</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="NONE" type="javascript">
+          <url>file://$PROJECT_DIR$/app/dynamic-inputs.tsx</url>
+          <line>31</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

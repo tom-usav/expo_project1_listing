@@ -1,0 +1,33 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Expo: Start",
+            "type": "reactnative",
+            "request": "launch",
+            "platform": "exponent",
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "Expo: Debug Android",
+            "type": "reactnative",
+            "request": "launch",
+            "platform": "android",
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "Expo: Debug iOS",
+            "type": "reactnative",
+            "request": "launch",
+            "platform": "ios",
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "Expo Web: Chrome",
+            "type": "chrome",
+            "request": "launch",
+            "url": "http://localhost:8081",
+            "webRoot": "${workspaceFolder}"
+        }
+    ]
+}
