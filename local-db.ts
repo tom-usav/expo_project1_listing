@@ -1,0 +1,74 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const DYNAMIC_INPUTS_PREFIX = 'dynamic-inputs:';
+
+export type DynamicInputsRecord = {
+  category: string;
+  values: Record<string, string | boolean>;
+  imageUris: string[];
+  contact?: {
+    phone?: string;
+    email?: string;
+  };
+  status?: 'pending';
+  updatedAt: string;
+};
+
+export async function dbGet(key: string): Promise<string | null> {
+  return AsyncStorage.getItem(key);
+}
+
+export async function dbSet(key: string, value: string): Promise<void> {
+  await AsyncStorage.setItem(key, value);
+}
+
+export async function dbRemove(key: string): Promise<void> {
+  await AsyncStorage.removeItem(key);
+}
+
+export async function dbGetJson<T>(key: string): Promise<T | null> {
+  const raw = await AsyncStorage.getItem(key);
+  if (!raw) {
+    return null;
+  }
+
+  try {
+    return JSON.parse(raw) as T;
+  } catch {
+    return null;
+  }
+}
+
+export async function dbSetJson<T>(key: string, value: T): Promise<void> {
+  await AsyncStorage.setItem(key, JSON.stringify(value));
+}
+
+export async function initDynamicInputsTable(): Promise<void> {
+  // AsyncStorage has no table schema, so this is intentionally a no-op.
+}
+
+export async function loadDynamicInputsRecord(category: string): Promise<DynamicInputsRecord | null> {
+  return dbGetJson<DynamicInputsRecord>(`${DYNAMIC_INPUTS_PREFIX}${category}`);
+}
+
+export async function saveDynamicInputsRecord(record: DynamicInputsRecord): Promise<void> {
+  await dbSetJson(`${DYNAMIC_INPUTS_PREFIX}${record.category}`, record);
+}
+
+export async function clearDynamicInputsRecord(category: string): Promise<void> {
+  await dbRemove(`${DYNAMIC_INPUTS_PREFIX}${category}`);
+}
+
+const localDb = {
+  get: dbGet,
+  set: dbSet,
+  remove: dbRemove,
+  getJson: dbGetJson,
+  setJson: dbSetJson,
+  initDynamicInputsTable,
+  loadDynamicInputsRecord,
+  saveDynamicInputsRecord,
+  clearDynamicInputsRecord,
+};
+
+export default localDb;
