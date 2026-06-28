@@ -15,25 +15,66 @@ export type SyncDynamicInputsPayload = {
   ipAddressLocation?: string;
 };
 
+export type SyncBusinessInputsPayload = SyncDynamicInputsPayload;
+
 const envApiBaseUrl = process.env.EXPO_PUBLIC_API_BASE_URL;
 const configApiBaseUrl = Constants.expoConfig?.extra?.apiBaseUrl;
-const defaultApiBaseUrl = Platform.OS === 'android' ? 'http://10.0.2.2:3000' : 'http://localhost:3000';
+/* const defaultApiBaseUrl = Platform.OS === 'android' ? 'http://192.168.68.58:3000' : 'http://35.169.142.71:3000';
+*/
+
+const defaultApiBaseUrl = Platform.select({
+  android: 'http://192.168.68.58:3001',
+  ios: 'http://192.168.68.58:3001',
+});
+
 const API_BASE_URL = envApiBaseUrl || configApiBaseUrl || defaultApiBaseUrl;
 
 export async function syncDynamicInputsToServer(payload: SyncDynamicInputsPayload) {
-
   try {
-    const payloadWithCreatedAt = {
-      ...payload,
-      createdAt: payload.createdAt || new Date().toISOString(),
-    };
-
     const response = await fetch(`${API_BASE_URL}/api/dynamic-inputs`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(payloadWithCreatedAt),
+      body: JSON.stringify({
+        ...payload,
+        createdAt: payload.createdAt || new Date().toISOString(),
+      }),
+    });
+
+    if (!response.ok) {
+      const text = await response.text();
+      throw new Error(`Server sync failed: ${response.status} ${text}`);
+    }
+
+    return response.json() as Promise<{
+      message: string;
+      id: number;
+    }>;
+  } catch (error) {
+    if (error instanceof Error) {
+      throw new Error(
+        `Server sync failed: ${error.message}. TEST Please verify the API server is running and reachable at ${API_BASE_URL}`,
+      );
+    }
+
+    throw new Error(
+      `Server sync failed: Unknown network error. Please verify the API server at ${API_BASE_URL}`,
+    );
+  }
+}
+
+export async function syncBusinessInputsToServer(payload: SyncBusinessInputsPayload) {
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/business-inputs`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        ...payload,
+        createdAt: payload.createdAt || new Date().toISOString(),
+      }),
     });
 
     if (!response.ok) {
