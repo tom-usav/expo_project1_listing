@@ -1,8 +1,8 @@
-require('dotenv').config({ path: require('path').resolve(__dirname, '.env') });
+const path = require('path');
+require('dotenv').config({ path: path.resolve(process.cwd(), 'server', '.env') });
 const express = require('express');
 const cors = require('cors');
 const mysql = require('mysql2/promise');
-const path = require('path');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -29,17 +29,17 @@ app.use(express.json({ limit: '10mb' }));
 app.get('/health', async (req, res) => {
   try {
     await pool.execute('SELECT 1');
-    return res.json({ status: 'ok', message: 'API server is healthy local', db: 'connected' });
+    return res.json({ status: 'ok', message: 'API server is healthy', db: 'connected' });
   } catch (error) {
     console.error('Database health check failed:', error);
     return res.status(500).json({ status: 'error', message: 'Database connection failed', error: error.message });
   }
 });
 
-app.post('/api/dynamic-inputs', async (req, res) => {
-  const { category, values, imageUris, contact, status, updatedAt, createdAt } = req.body;
+async function insertInputsRecord(req, res, tableName) {
+  const { category, values, imageUris, contact, ipAddressLocation, status, updatedAt, createdAt } = req.body;
 
-  if (!category || !values || !imageUris || !updatedAt) {
+  if (!category || !values || !imageUris || !ipAddressLocation || !updatedAt) {
     return res.status(400).json({ error: 'Missing required fields' });
   }
 
@@ -48,15 +48,16 @@ app.post('/api/dynamic-inputs', async (req, res) => {
 
   try {
     const [result] = await pool.execute(
-      `INSERT INTO dynamic_inputs
-        (category, values_json, image_uris_json, contact_phone, contact_email, status, created_at, updated_at)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+      `INSERT INTO ${tableName}
+        (category, values_json, image_uris_json, contact_phone, contact_email, ipAddressLocation, status, created_at, updated_at)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         category,
         JSON.stringify(values),
         JSON.stringify(imageUris),
         contact?.phone || null,
         contact?.email || null,
+        ipAddressLocation,
         status || null,
         createdAtDate,
         new Date(updatedAt),
@@ -68,8 +69,12 @@ app.post('/api/dynamic-inputs', async (req, res) => {
     console.error('MySQL insert failed:', error);
     return res.status(500).json({ error: 'Unable to save data to database', details: error.message });
   }
-});
+}
 
-app.listen(port, () => {
-  console.log(`API server listening on http://localhost:${port}`);
+app.post('/api/dynamic-inputs', async (req, res) => insertInputsRecord(req, res, 'dynamic_inputs'));
+
+app.post('/api/business-inputs', async (req, res) => insertInputsRecord(req, res, 'business_inputs'));
+
+app.listen(port, '0.0.0.0', () => {
+  console.log(`API server listening on port ${port}`);
 });
