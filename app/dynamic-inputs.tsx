@@ -18,11 +18,15 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Fonts } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
-import { checkApiServerHealth, syncDynamicInputsToServer } from '@/lib/api';
+import { checkApiServerHealth, syncBusinessInputsToServer, syncDynamicInputsToServer } from '@/lib/api';
 import {
+  clearBusinessInputsRecord,
   clearDynamicInputsRecord,
+  initBusinessInputsTable,
   initDynamicInputsTable,
+  loadBusinessInputsRecord,
   loadDynamicInputsRecord,
+  saveBusinessInputsRecord,
   saveDynamicInputsRecord,
 } from '@/lib/local-db';
 
@@ -38,6 +42,62 @@ type FieldConfig = {
 };
 
 const CATEGORY_FORMS: Record<string, { title: string; description: string; fields: FieldConfig[] }> = {
+  Business: {
+    title: 'Dynamic Inputs - Business',
+    description: 'Cau hinh thong tin kinh doanh voi bo truong du lieu linh hoat theo muc tieu va quy mo.',
+    fields: [
+      {
+        key: 'businessType',
+        label: 'Loai hinh kinh doanh',
+        type: 'select',
+        required: true,
+        options: ['Startup', 'SME', 'Agency', 'E-commerce'],
+      },
+      {
+        key: 'companyStage',
+        label: 'Giai doan doanh nghiep',
+        type: 'select',
+        required: true,
+        options: ['Idea', 'Early traction', 'Growth', 'Scale'],
+      },
+      {
+        key: 'targetMarket',
+        label: 'Thi truong muc tieu',
+        type: 'text',
+        required: true,
+        placeholder: 'VD: SMEs in Southeast Asia',
+      },
+      {
+        key: 'monthlyRevenue',
+        label: 'Doanh thu hang thang (USD)',
+        type: 'number',
+        placeholder: 'VD: 50000',
+      },
+      {
+        key: 'teamSize',
+        label: 'Quy mo doi ngu',
+        type: 'number',
+        placeholder: 'VD: 12',
+      },
+      {
+        key: 'priority',
+        label: 'Uu tien',
+        type: 'select',
+        options: ['Lead generation', 'Brand awareness', 'Retention', 'Automation'],
+      },
+      {
+        key: 'requiresAssets',
+        label: 'Can tai len tai lieu / hinh anh',
+        type: 'toggle',
+      },
+      {
+        key: 'note',
+        label: 'Ghi chu them',
+        type: 'text',
+        placeholder: 'Muc tieu, ngan sach, deadline...',
+      },
+    ],
+  },
   'Nhà Cửa': {
     title: 'Dynamic Inputs - Nha Cua',
     description: 'Cau hinh nhu cau nha o voi bo truong du lieu linh hoat theo danh muc da chon.',
@@ -117,14 +177,48 @@ const FALLBACK_FORM = {
       placeholder: 'Them thong tin chi tiet',
     },
   ],
+  
+};
+
+async function getPublicIpAddress(): Promise<string> {
+  try {
+    const response = await fetch('https://api.ipify.org?format=json');
+
+    if (!response.ok) {
+      throw new Error(`IP lookup failed with status ${response.status}`);
+    }
+
+    const data = (await response.json()) as { ip?: string };
+    const ip = typeof data.ip === 'string' ? data.ip.trim() : '';
+
+    return ip || 'Unknown';
+  } catch {
+    return 'Unknown';
+  }
+}
+
+export type DynamicInputsRecord = {
+  category: string;
+  values: Record<string, string | boolean>;
+  imageUris: string[];
+  contact?: {
+    phone?: string;
+    email?: string;
+  };
+  ipAddressLocation?: string;
+  status?: 'pending';
+  updatedAt: string;
 };
 
 export default function DynamicInputsScreen() {
   const colorScheme = useColorScheme() ?? 'light';
   const params = useLocalSearchParams<{ category?: string | string[] }>();
   const selectedCategory = Array.isArray(params.category)
-    ? params.category[0] ?? 'Nhà Cửa'
-    : params.category ?? 'Nhà Cửa';
+    ? params.category[0] ?? 'Business'
+    : params.category ?? 'Business';
+  const isBusinessCategory = selectedCategory === 'Business';
+  const isNhaCuaCategory = selectedCategory === 'Nhà Cửa';
+  const isGenericCategory = !isBusinessCategory && !isNhaCuaCategory;
 
   const config = CATEGORY_FORMS[selectedCategory] ?? FALLBACK_FORM;
   const palette = useMemo(
@@ -187,6 +281,7 @@ export default function DynamicInputsScreen() {
     imageUris: string[];
     phone: string;
     email: string;
+    ipAddressLocation: string;
   } | null>(null);
   const [isVerifying, setIsVerifying] = useState(false);
   const [apiStatus, setApiStatus] = useState<'checking' | 'online' | 'offline' | 'unreachable'>('checking');
@@ -194,8 +289,11 @@ export default function DynamicInputsScreen() {
   useEffect(() => {
     const loadSavedData = async () => {
       try {
-        await initDynamicInputsTable();
-        const record = await loadDynamicInputsRecord(selectedCategory);
+        const initTable = isBusinessCategory ? initBusinessInputsTable : initDynamicInputsTable;
+        const loadRecord = isBusinessCategory ? loadBusinessInputsRecord : loadDynamicInputsRecord;
+
+        await initTable();
+        const record = await loadRecord(selectedCategory);
         if (!record) {
           setValues(createInitialValues());
           setImageUris([]);
@@ -212,7 +310,7 @@ export default function DynamicInputsScreen() {
     };
 
     loadSavedData();
-  }, [createInitialValues, selectedCategory]);
+  }, [createInitialValues, isBusinessCategory, selectedCategory]);
 
   useEffect(() => {
     let isMounted = true;
@@ -294,16 +392,16 @@ export default function DynamicInputsScreen() {
       }
     });
 
-    if (selectedCategory === 'Nhà Cửa' && imageUris.length === 0) {
+    if (isNhaCuaCategory && imageUris.length === 0) {
       next.images = 'Vui long tai len it nhat 1 hinh anh.';
     }
 
     return next;
-  }, [config.fields, imageUris.length, selectedCategory, values]);
+  }, [config.fields, imageUris.length, isNhaCuaCategory, values]);
 
   const requiredCount =
     config.fields.filter((field) => field.required && field.type !== 'toggle').length +
-    (selectedCategory === 'Nhà Cửa' ? 1 : 0);
+    (isNhaCuaCategory ? 1 : 0);
   const completedRequired = config.fields.filter((field) => {
     if (!field.required || field.type === 'toggle') {
       return false;
@@ -313,7 +411,7 @@ export default function DynamicInputsScreen() {
     return typeof current === 'string' ? current.trim().length > 0 : Boolean(current);
   }).length;
 
-  const completionBase = completedRequired + (selectedCategory === 'Nhà Cửa' && imageUris.length > 0 ? 1 : 0);
+  const completionBase = completedRequired + (isNhaCuaCategory && imageUris.length > 0 ? 1 : 0);
   const completion = requiredCount === 0 ? 100 : Math.round((completionBase / requiredCount) * 100);
   const isValid = Object.keys(errors).length === 0;
 
@@ -348,6 +446,7 @@ export default function DynamicInputsScreen() {
 
     const phoneCode = String(Math.floor(100000 + Math.random() * 900000));
     const emailCode = String(Math.floor(100000 + Math.random() * 900000));
+    const ipAddressLocation = await getPublicIpAddress();
 
     setPhoneVerificationCode(phoneCode);
     setEmailVerificationCode(emailCode);
@@ -358,6 +457,7 @@ export default function DynamicInputsScreen() {
       imageUris: [...imageUris],
       phone: contactPhone.trim(),
       email: contactEmail.trim(),
+      ipAddressLocation,
     });
 
     Alert.alert(
@@ -384,47 +484,52 @@ export default function DynamicInputsScreen() {
       return;
     }
 
-        try {
-          const now = new Date().toISOString();
+    try {
+      const now = new Date().toISOString();
 
-          const recordToSave = {
-            category: selectedCategory,
-            values: pendingSave.values,
-            imageUris: pendingSave.imageUris,
-            contact: {
-              phone: pendingSave.phone,
-              email: pendingSave.email,
-            },
-            status: 'pending' as const,
-            updatedAt: now,
-          };
+      const recordToSave = {
+        category: selectedCategory,
+        values: pendingSave.values,
+        imageUris: Array.isArray(pendingSave.imageUris) ? pendingSave.imageUris : [],
+        contact: {
+          phone: pendingSave.phone,
+          email: pendingSave.email,
+        },
+        ipAddressLocation: pendingSave.ipAddressLocation,
+        status: 'pending' as const,
+        updatedAt: now,
+      };
 
-          await initDynamicInputsTable();
-          await saveDynamicInputsRecord(recordToSave);
+      const initTable = isBusinessCategory ? initBusinessInputsTable : initDynamicInputsTable;
+      const saveRecord = isBusinessCategory ? saveBusinessInputsRecord : saveDynamicInputsRecord;
+      const syncToServer = isBusinessCategory ? syncBusinessInputsToServer : syncDynamicInputsToServer;
 
-          try {
-            await syncDynamicInputsToServer(recordToSave);
-            Alert.alert('Saved', 'Your data has been saved locally and synced to server.');
-          } catch (syncError) {
-            const message = syncError instanceof Error ? syncError.message : 'Unknown sync error';
-            console.error('Server sync failed:', syncError);
-            Alert.alert(
-              'Saved locally',
-              `Your data was saved locally, but server sync failed. ${message}`,
-            );
-          }
+      await initTable();
+      await saveRecord(recordToSave);
 
-          setSavedAt(now);
-          clearVerificationState();
+      try {
+        await syncToServer(recordToSave);
+        Alert.alert('Saved', 'Your data has been saved locally and synced to server.');
+      } catch (syncError) {
+        const message = syncError instanceof Error ? syncError.message : 'Unknown sync error';
+        console.error('Server sync failed:', syncError);
+        Alert.alert(
+          'Saved locally',
+          `Your data was saved locally, but server sync failed. ${message}`,
+        );
+      }
 
-          Alert.alert('Saved', 'Your Nhà Cửa data has been saved locally and synced to MySQL.');
-        } catch (error) {
-          const message = error instanceof Error ? error.message : 'Unknown error';
-          console.error('Save or sync failed:', error);
-          Alert.alert('Save failed', message);
-        } finally {
-          setIsVerifying(false);
-        }
+      setSavedAt(now);
+      clearVerificationState();
+
+      Alert.alert('Saved', `${selectedCategory} data has been saved locally and synced to MySQL.`);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Unknown error';
+      console.error('Save or sync failed:', error);
+      Alert.alert('Save failed', message);
+    } finally {
+      setIsVerifying(false);
+    }
   };
 
   const clearSavedData = async () => {
@@ -435,14 +540,17 @@ export default function DynamicInputsScreen() {
     setIsClearing(true);
 
     try {
-      await initDynamicInputsTable();
-      await clearDynamicInputsRecord(selectedCategory);
+      const initTable = isBusinessCategory ? initBusinessInputsTable : initDynamicInputsTable;
+      const clearRecord = isBusinessCategory ? clearBusinessInputsRecord : clearDynamicInputsRecord;
+
+      await initTable();
+      await clearRecord(selectedCategory);
       setValues(createInitialValues());
       setImageUris([]);
       setSavedAt(null);
       setSubmitted(false);
       clearVerificationState();
-      Alert.alert('Cleared', 'Saved data has been removed for this category.');
+        Alert.alert('Cleared', `Saved data has been removed for ${selectedCategory}.`);
     } catch {
       Alert.alert('Clear failed', 'Unable to clear saved data. Please try again.');
     } finally {
@@ -621,12 +729,20 @@ export default function DynamicInputsScreen() {
         </View>
 
         <View style={styles.block}>
-          <ThemedText type="defaultSemiBold">
-            Hinh anh bat dong san
-            {selectedCategory === 'Nhà Cửa' ? ' *' : ''}
-          </ThemedText>
+            <ThemedText type="defaultSemiBold">
+              {isBusinessCategory
+                ? 'Tai lieu / hinh anh ho tro'
+                : isNhaCuaCategory
+                ? 'Hinh anh bat dong san'
+                : 'Tai lieu / hinh anh ho tro'}
+              {isNhaCuaCategory ? ' *' : ''}
+            </ThemedText>
           <ThemedText style={{ color: palette.textMuted }}>
-            Ban co the chon nhieu anh cung luc (toi da 10 anh).
+            {isBusinessCategory
+              ? 'Ban co the tai len logo, anh san pham, pitch deck, hoac tai lieu ho tro.'
+              : isNhaCuaCategory
+              ? 'Ban co the chon nhieu anh cung luc (toi da 10 anh).'
+              : 'Ban co the tai len tai lieu ho tro cho danh muc tong quat.'}
           </ThemedText>
           <Pressable
             onPress={pickImages}
@@ -638,7 +754,9 @@ export default function DynamicInputsScreen() {
                 opacity: pressed ? 0.85 : 1,
               },
             ]}>
-            <ThemedText type="defaultSemiBold">Chọn Nhiều Hình Ảnh</ThemedText>
+            <ThemedText type="defaultSemiBold">
+              {isBusinessCategory || isGenericCategory ? 'Tai Len Tai Lieu' : 'Chọn Nhiều Hình Ảnh'}
+            </ThemedText>
           </Pressable>
 
           {imageUris.length > 0 ? (
@@ -681,7 +799,7 @@ export default function DynamicInputsScreen() {
           <View style={[styles.verificationCard, { borderColor: palette.border, backgroundColor: palette.surface }]}>
             <ThemedText type="defaultSemiBold">Xac minh so dien thoai va email</ThemedText>
             <ThemedText style={{ color: palette.textMuted }}>
-              Nhap day du ca 2 ma xac minh de luu du lieu.
+              Nhap day dur ca 2 ma xac minh de luu du lieu.
             </ThemedText>
 
             <TextInput
