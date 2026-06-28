@@ -8,8 +8,8 @@ import { Fonts } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 
 const CATEGORIES = [
-  'Nhà Cửa',
   'Business',
+  'Nhà Cửa',
   'Science',
   'Health',
   'Design',
@@ -25,7 +25,7 @@ const CATEGORIES = [
 export default function CategorySelectionScreen() {
   const colorScheme = useColorScheme() ?? 'light';
   const router = useRouter();
-  const [selected, setSelected] = useState<string[]>([]);
+  const [selected, setSelected] = useState<string[]>(['Business']);
 
   const palette = useMemo(
     () =>
@@ -66,7 +66,7 @@ export default function CategorySelectionScreen() {
       return;
     }
 
-    const preferredCategory = selected.includes('Nhà Cửa') ? 'Nhà Cửa' : selected[0];
+    const preferredCategory = selected.includes('Business') ? 'Business' : selected[0];
 
     router.push({
       pathname: '/dynamic-inputs',
@@ -83,12 +83,12 @@ export default function CategorySelectionScreen() {
 
       <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
         <View style={[styles.headerCard, { borderColor: palette.border, backgroundColor: palette.surface }]}>
-          <ThemedText style={styles.overline}>Personalize</ThemedText>
+          <ThemedText style={styles.overline}>Business</ThemedText>
           <ThemedText type="title" style={styles.title}>
-            Choose Your Categories
+            Choose Business Categories
           </ThemedText>
           <ThemedText style={[styles.description, { color: palette.muted }]}>
-            Select at least one category to tailor content recommendations for your home feed.
+            Select the business topics you want to prioritize for recommendations and follow-up screens.
           </ThemedText>
           <ThemedText type="defaultSemiBold">
             {selected.length} {selected.length === 1 ? 'category' : 'categories'} selected
