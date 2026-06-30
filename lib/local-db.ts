@@ -6,6 +6,8 @@ const BUSINESS_INPUTS_PREFIX = 'business-inputs:';
 export type DynamicInputsRecord = {
   category: string;
   values: Record<string, string | boolean>;
+  latitude?: string;
+  longitude?: string;
   imageUris: string[];
   contact?: {
     phone?: string;

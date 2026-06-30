@@ -68,6 +68,18 @@ const CATEGORY_FORMS: Record<string, { title: string; description: string; field
         placeholder: 'VD: SMEs in Southeast Asia',
       },
       {
+        key: 'latitude',
+        label: 'Vi do',
+        type: 'number',
+        placeholder: 'VD: 10.762622',
+      },
+      {
+        key: 'longitude',
+        label: 'Kinh do',
+        type: 'number',
+        placeholder: 'VD: 106.660172',
+      },
+      {
         key: 'monthlyRevenue',
         label: 'Doanh thu hang thang (USD)',
         type: 'number',
@@ -115,6 +127,20 @@ const CATEGORY_FORMS: Record<string, { title: string; description: string; field
         type: 'text',
         required: true,
         placeholder: 'VD: Quan 1, TP. Ho Chi Minh',
+      },
+      {
+        key: 'latitude',
+        label: 'Vi do',
+        type: 'number',
+
+        placeholder: 'VD: 10.762622',
+      },
+      {
+        key: 'longitude',
+        label: 'Kinh do',
+        type: 'number',
+
+        placeholder: 'VD: 106.660172',
       },
       {
         key: 'area',
@@ -200,6 +226,7 @@ async function getPublicIpAddress(): Promise<string> {
 export type DynamicInputsRecord = {
   category: string;
   values: Record<string, string | boolean>;
+
   imageUris: string[];
   contact?: {
     phone?: string;
@@ -278,6 +305,8 @@ export default function DynamicInputsScreen() {
   const [emailVerificationInput, setEmailVerificationInput] = useState('');
   const [pendingSave, setPendingSave] = useState<{
     values: Record<string, string | boolean>;
+    latitude?: string;
+    longitude?: string;
     imageUris: string[];
     phone: string;
     email: string;
@@ -301,7 +330,11 @@ export default function DynamicInputsScreen() {
           return;
         }
 
-        setValues({ ...createInitialValues(), ...(record.values ?? {}) });
+        setValues({
+          ...createInitialValues(),
+          ...(record.values ?? {}),
+
+        });
         setImageUris(Array.isArray(record.imageUris) ? record.imageUris : []);
         setSavedAt(typeof record.updatedAt === 'string' ? record.updatedAt : null);
       } catch {
@@ -426,6 +459,8 @@ export default function DynamicInputsScreen() {
 
   const isPhoneValid = (phone: string) => /^\+?[0-9]{9,15}$/.test(phone.trim());
   const isEmailValid = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+  const getCoordinateValue = (key: 'latitude' | 'longitude') =>
+    typeof values[key] === 'string' ? values[key].trim() : '';
 
   const submit = async () => {
     setSubmitted(true);
@@ -447,6 +482,7 @@ export default function DynamicInputsScreen() {
     const phoneCode = String(Math.floor(100000 + Math.random() * 900000));
     const emailCode = String(Math.floor(100000 + Math.random() * 900000));
     const ipAddressLocation = await getPublicIpAddress();
+    console.log('Public IP address:', ipAddressLocation);
 
     setPhoneVerificationCode(phoneCode);
     setEmailVerificationCode(emailCode);
@@ -454,6 +490,7 @@ export default function DynamicInputsScreen() {
     setEmailVerificationInput('');
     setPendingSave({
       values: { ...values },
+
       imageUris: [...imageUris],
       phone: contactPhone.trim(),
       email: contactEmail.trim(),
@@ -486,10 +523,13 @@ export default function DynamicInputsScreen() {
 
     try {
       const now = new Date().toISOString();
+      const latitude = pendingSave.latitude ?? undefined;
+      const longitude = pendingSave.longitude ?? undefined;
 
-      const recordToSave = {
+      const recordToSave: DynamicInputsRecord = {
         category: selectedCategory,
         values: pendingSave.values,
+
         imageUris: Array.isArray(pendingSave.imageUris) ? pendingSave.imageUris : [],
         contact: {
           phone: pendingSave.phone,
@@ -677,7 +717,13 @@ export default function DynamicInputsScreen() {
                 onChangeText={(next) => updateValue(field.key, next)}
                 placeholder={field.placeholder}
                 placeholderTextColor={palette.textMuted}
-                keyboardType={field.type === 'number' ? 'numeric' : 'default'}
+                keyboardType={
+                  field.type === 'number'
+                    ? field.key === 'latitude' || field.key === 'longitude'
+                      ? 'decimal-pad'
+                      : 'numeric'
+                    : 'default'
+                }
                 style={[
                   styles.input,
                   {

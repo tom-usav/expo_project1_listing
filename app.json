@@ -47,6 +47,9 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
-    }
-  }
+    },
+    "sdkVersion": "54.0.0",
+    "entryPoint": ".vscode/exponentIndex.js"
+  },
+  "name": "proaiapp3"
 }

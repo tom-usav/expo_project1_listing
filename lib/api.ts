@@ -4,6 +4,7 @@ import { Platform } from 'react-native';
 export type SyncDynamicInputsPayload = {
   category: string;
   values: Record<string, string | boolean>;
+
   imageUris: string[];
   contact?: {
     phone?: string;

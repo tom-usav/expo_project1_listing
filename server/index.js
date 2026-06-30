@@ -37,11 +37,22 @@ app.get('/health', async (req, res) => {
 });
 
 async function insertInputsRecord(req, res, tableName) {
-  const { category, values, imageUris, contact, ipAddressLocation, status, updatedAt, createdAt } = req.body;
+  const {
+    category,
+    values,
+    imageUris,
+    contact,
+    ipAddressLocation,
+    status,
+    updatedAt,
+    createdAt,
+  } = req.body;
 
   if (!category || !values || !imageUris || !ipAddressLocation || !updatedAt) {
     return res.status(400).json({ error: 'Missing required fields' });
   }
+
+
 
   // Use provided createdAt or set now
   const createdAtDate = createdAt ? new Date(createdAt) : new Date();
@@ -54,6 +65,7 @@ async function insertInputsRecord(req, res, tableName) {
       [
         category,
         JSON.stringify(values),
+
         JSON.stringify(imageUris),
         contact?.phone || null,
         contact?.email || null,

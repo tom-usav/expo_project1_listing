@@ -4,15 +4,29 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ce0ee7a7-477a-4d78-b65c-5a0faf5fe0d0" name="Changes" comment="" />
+    <list default="true" id="ce0ee7a7-477a-4d78-b65c-5a0faf5fe0d0" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.env.example" beforeDir="false" afterPath="$PROJECT_DIR$/.env.example" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vscode/launch.json" beforeDir="false" afterPath="$PROJECT_DIR$/.vscode/launch.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/dynamic-inputs.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/dynamic-inputs.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/api.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/local-db.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/local-db.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/index.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="185" />
+    <option name="cachedIndexableFilesCount" value="18148" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="McpProjectServerCommands">
     <commands />
@@ -20,23 +34,23 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.2600562080975204" />
-      <entry key="MS500" value="2.758945167729549" />
-      <entry key="S2" value="3.8395491663315444" />
-      <entry key="S5" value="5.093824156702936" />
-      <entry key="S10" value="6.1572920651574785" />
-      <entry key="S30" value="7.2686548064925915" />
-      <entry key="S60" value="7.617231465697643" />
-      <entry key="M2" value="7.804131959677952" />
-      <entry key="M5" value="7.920550391386908" />
-      <entry key="M10" value="7.968696324221578" />
-      <entry key="M15" value="8.133745647975562" />
-      <entry key="M30" value="12.246755912232553" />
-      <entry key="H1" value="41.48248941776747" />
-      <entry key="H2" value="143.3201748077364" />
-      <entry key="H4" value="366.409839697097" />
-      <entry key="D1" value="1081.2045402878998" />
-      <entry key="W1" value="1348.0260344402172" />
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0" />
+      <entry key="S2" value="1.0" />
+      <entry key="S5" value="1.0" />
+      <entry key="S10" value="1.0000000015831483" />
+      <entry key="S30" value="1.0054030053162994" />
+      <entry key="S60" value="1.2341447747198409" />
+      <entry key="M2" value="2.8262268990219135" />
+      <entry key="M5" value="15.860878593349103" />
+      <entry key="M10" value="48.68091300485848" />
+      <entry key="M15" value="77.56475505604968" />
+      <entry key="M30" value="145.8342419686485" />
+      <entry key="H1" value="291.8552060147097" />
+      <entry key="H2" value="634.5970076441423" />
+      <entry key="H4" value="1267.7923778891895" />
+      <entry key="D1" value="4054.223839133047" />
+      <entry key="W1" value="5688.995769681465" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -45,37 +59,40 @@
       <entry key="S5" value="0.0" />
       <entry key="S10" value="0.0" />
       <entry key="S30" value="0.0" />
-      <entry key="S60" value="8.399863783629758E-290" />
-      <entry key="M2" value="4.6654312127771085E-145" />
-      <entry key="M5" value="4.231560270385453E-58" />
-      <entry key="M10" value="4.7157461942719086E-29" />
-      <entry key="M15" value="2.3325644688159695E-19" />
-      <entry key="M30" value="1.1727076801141344E-9" />
-      <entry key="H1" value="8.36936118994843E-5" />
-      <entry key="H2" value="0.022396202655573117" />
-      <entry key="H4" value="0.36652251442590494" />
-      <entry key="D1" value="3.765310770069046" />
-      <entry key="W1" value="5.613630648501399" />
+      <entry key="S60" value="0.0" />
+      <entry key="M2" value="1.2701924366023756E-166" />
+      <entry key="M5" value="4.380743335746664E-67" />
+      <entry key="M10" value="6.618718407475921E-34" />
+      <entry key="M15" value="7.594792910444102E-23" />
+      <entry key="M30" value="8.714810904879729E-12" />
+      <entry key="H1" value="2.9521198715779647E-6" />
+      <entry key="H2" value="0.001732441381527664" />
+      <entry key="H4" value="0.05070506967959173" />
+      <entry key="D1" value="2.6277136312444833" />
+      <entry key="W1" value="6.06983776215733" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="1.2255999048236177" />
-      <entry key="MS500" value="2.7436877541862676" />
-      <entry key="S2" value="3.8332890712367864" />
-      <entry key="S5" value="5.088976121971833" />
-      <entry key="S10" value="6.15380911753104" />
-      <entry key="S30" value="7.267121392407667" />
-      <entry key="S60" value="7.616406227290091" />
-      <entry key="M2" value="7.803703643279627" />
-      <entry key="M5" value="7.920375153287062" />
-      <entry key="M10" value="7.96860799358201" />
-      <entry key="M15" value="8.133686030452456" />
-      <entry key="M30" value="12.246716675467722" />
-      <entry key="H1" value="41.482514163601344" />
-      <entry key="H2" value="143.34246198522916" />
-      <entry key="H4" value="366.7761570381743" />
-      <entry key="D1" value="1084.9696487472895" />
-      <entry key="W1" value="1353.6396239907017" />
+      <entry key="MS100" value="0.6198538499694932" />
+      <entry key="MS500" value="0.90877811644852" />
+      <entry key="S2" value="0.9763700862317316" />
+      <entry key="S5" value="0.9904801721236224" />
+      <entry key="S10" value="0.9952287050034919" />
+      <entry key="S30" value="1.0038032894701319" />
+      <entry key="S60" value="1.233203115548236" />
+      <entry key="M2" value="2.8253489498620663" />
+      <entry key="M5" value="15.860062118165118" />
+      <entry key="M10" value="48.680260340865345" />
+      <entry key="M15" value="77.56421035536466" />
+      <entry key="M30" value="145.8338161300988" />
+      <entry key="H1" value="291.85474472569985" />
+      <entry key="H2" value="634.5981864352846" />
+      <entry key="H4" value="1267.8424666643275" />
+      <entry key="D1" value="4056.8510835300062" />
+      <entry key="W1" value="5695.065500510469" />
     </decayedShown>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="showPreview" value="true" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0,
@@ -93,9 +110,11 @@
     &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
     &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
     &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;javascript.preferred.runtime.type.id&quot;: &quot;node&quot;,
     &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;/Users/thomasvo/ProAiApp3&quot;,
@@ -133,7 +152,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-31caf2ab9e3c-JavaScript-WS-261.24374.125" />
+        <option value="bundled-js-predefined-d6986cc7102b-31caf2ab9e3c-JavaScript-WS-261.25134.101" />
       </set>
     </attachedChunks>
   </component>
@@ -173,23 +192,46 @@
       <workItem from="1780339514577" duration="625000" />
       <workItem from="1780340673884" duration="499000" />
       <workItem from="1780350148898" duration="18000" />
+      <workItem from="1780836341393" duration="29000" />
+      <workItem from="1780836396549" duration="1071000" />
+      <workItem from="1780837974254" duration="826000" />
+      <workItem from="1780840588182" duration="6409000" />
+      <workItem from="1780855159722" duration="3850000" />
+      <workItem from="1780926459173" duration="4540000" />
+      <workItem from="1780933901305" duration="8199000" />
+      <workItem from="1781017406945" duration="5721000" />
+      <workItem from="1781790221257" duration="7070000" />
+      <workItem from="1782160573950" duration="29000" />
+      <workItem from="1782160623403" duration="664000" />
+      <workItem from="1782501076588" duration="33000" />
+      <workItem from="1782501128206" duration="8628000" />
+      <workItem from="1782585725271" duration="2545000" />
+      <workItem from="1782655583785" duration="3988000" />
+      <workItem from="1782666610305" duration="1237000" />
+      <workItem from="1782676039523" duration="5276000" />
+      <workItem from="1782694497284" duration="2359000" />
+      <workItem from="1782741153137" duration="7590000" />
+      <workItem from="1782752935434" duration="906000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName=".env" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app/dynamic-inputs.tsx</url>
-          <line>39</line>
+          <line>43</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="NONE" type="javascript">
           <url>file://$PROJECT_DIR$/app/dynamic-inputs.tsx</url>
-          <line>31</line>
+          <line>35</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>
